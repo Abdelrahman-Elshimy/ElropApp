@@ -43,57 +43,81 @@ class _HomePageState extends State<HomePage> {
           // button of customers
 
           Container(
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * .1,
-                right: MediaQuery.of(context).size.width * .1, top: 30, bottom: 10),
+            margin: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * .1,
+                right: MediaQuery.of(context).size.width * .1,
+                top: 30,
+                bottom: 10),
             child: RaisedButton(
               color: _appColors.mainColor,
-              onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustomersPage()));
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => CustomersPage()));
               },
               padding: EdgeInsets.all(15),
-              child: Text('الزبائن', style: TextStyle(color: Colors.white,),),
+              child: Text(
+                'الزبائن',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
           ),
 
           // button of customers
 
           Container(
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * .1,
-                right: MediaQuery.of(context).size.width * .1, top: 30, bottom: 10),
+            margin: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * .1,
+                right: MediaQuery.of(context).size.width * .1,
+                top: 30,
+                bottom: 10),
             child: RaisedButton(
               color: _appColors.mainColor,
-              onPressed: (){},
+              onPressed: () {},
               padding: EdgeInsets.all(15),
-              child: Text('المخزن', style: TextStyle(color: Colors.white,),),
+              child: Text(
+                'المخزن',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
           ),
 
           // button of customers
 
           Container(
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * .1,
-                right: MediaQuery.of(context).size.width * .1, top: 30, bottom: 10),
+            margin: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * .1,
+                right: MediaQuery.of(context).size.width * .1,
+                top: 30,
+                bottom: 10),
             child: RaisedButton(
               color: _appColors.mainColor,
-              onPressed: (){},
+              onPressed: () {},
               padding: EdgeInsets.all(15),
-              child: Text('ايرادات ومصروفات', style: TextStyle(color: Colors.white,),),
+              child: Text(
+                'ايرادات ومصروفات',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
           ),
 
-                    // button of customers
+          // button of customers
 
           Container(
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * .1,
-                right: MediaQuery.of(context).size.width * .1, top: 30, bottom: 10),
+            margin: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * .1,
+                right: MediaQuery.of(context).size.width * .1,
+                top: 30,
+                bottom: 10),
             child: RaisedButton(
               color: _appColors.mainColor,
-              onPressed: (){},
+              onPressed: () {},
               padding: EdgeInsets.all(15),
-              child: Text('التقارير', style: TextStyle(color: Colors.white,),),
+              child: Text(
+                'التقارير',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
           ),
-
         ],
       ),
     );

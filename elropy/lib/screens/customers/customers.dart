@@ -1,4 +1,6 @@
+import 'package:elropy/models/customer.dart';
 import 'package:elropy/screens/customers/add_customer.dart';
+import 'package:elropy/screens/customers/customer.dart';
 import 'package:flutter/material.dart';
 
 class CustomersPage extends StatefulWidget {
@@ -7,6 +9,22 @@ class CustomersPage extends StatefulWidget {
 }
 
 class _CustomersPageState extends State<CustomersPage> {
+
+  List<Customer> customers = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (var i = 0; i < 50; i++) {
+      customers.add(
+        Customer('عبدالرحمن لطفي يحي $i', '0112484195$i', 'الرياض')
+      );
+    }
+
+    
+
+  }
   String _search;
   @override
   Widget build(BuildContext context) {
@@ -137,62 +155,66 @@ class _CustomersPageState extends State<CustomersPage> {
   }
 
   List<Widget> getAllCustomers() {
-    List<Widget> customers = [];
+    List<Widget> customersWidgets = [];
 
-    for (int i = 0; i < 20; i++) {
-      customers.add(
+    for (int i = 0; i < customers.length; i++) {
+      customersWidgets.add(
         Container(
-          decoration: BoxDecoration(
-              color: (i % 2 == 0) ?Color(0xffDDDDDD) : Colors.white,
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(5)),
           margin: EdgeInsets.only(left: 15, right: 15, bottom: 10),
-          padding: EdgeInsets.only(top: 8, bottom: 8),
           child: InkWell(
             onTap: () {
-              print('sdsdds $i');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerPage(customers[i])));
             },
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    child: Text(
-                      'عبدالرحمن لطفي يحيي',
-                      textAlign: TextAlign.center,
+            child: Container(
+              decoration: BoxDecoration(
+                color: (i % 2 == 0) ?Color(0xffDDDDDD) : Colors.white,
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(5)),
+            
+            padding: EdgeInsets.only(top: 8, bottom: 8),
+            
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      child: Text(
+                        customers[i].name,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 3,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Text(
-                      'الرياض',
-                      textAlign: TextAlign.center,
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Text(
+                        customers[i].address,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 3,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Text(
-                      (1000 * (i + 1)).toString(),
-                      textAlign: TextAlign.center,
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Text(
+                        (1000 * (i + 1)).toString(),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       );
     }
-    return customers;
+    return customersWidgets;
   }
 }
