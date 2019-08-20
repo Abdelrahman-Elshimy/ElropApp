@@ -1,3 +1,4 @@
+import 'package:elropy/screens/customers/customers.dart';
 import 'package:elropy/utilities/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,8 @@ class _HomePageState extends State<HomePage> {
             margin: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * .2,
                 right: MediaQuery.of(context).size.width * .2,
-                top: 50),
+                top: 50,
+                bottom: 20),
             padding: EdgeInsets.only(top: 30, bottom: 30),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -45,7 +47,9 @@ class _HomePageState extends State<HomePage> {
                 right: MediaQuery.of(context).size.width * .1, top: 30, bottom: 10),
             child: RaisedButton(
               color: _appColors.mainColor,
-              onPressed: (){},
+              onPressed: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustomersPage()));
+              },
               padding: EdgeInsets.all(15),
               child: Text('الزبائن', style: TextStyle(color: Colors.white,),),
             ),
