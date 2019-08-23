@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:elropy/screens/customers/single_product_form.dart';
 import 'package:elropy/shared/empty_state.dart';
+import 'package:elropy/utilities/colors.dart';
 import 'package:flutter/material.dart';
 
 class AddProductsPage extends StatefulWidget {
@@ -11,8 +12,181 @@ class AddProductsPage extends StatefulWidget {
 
 class _AddProductsPageState extends State<AddProductsPage> {
   List<SingleForm> formProducts = [];
+  List<SingleForm> secondFormProducts = [];
+
+  List<Widget> allProductToAdd() {
+    List<Widget> prodsClick = [
+      Divider(),
+    ];
+    for (var i = 0; i < products.length; i++) {
+      prodsClick.add(
+        InkWell(
+          onTap: (){
+            addForm(products[i]);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey.withOpacity(.4)))
+            ),
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Text(products[i]['name']),
+          ),
+        ),
+        
+      );
+      prodsClick.add(
+        Divider(),
+      );
+    }
+
+     return prodsClick;
+  }
 
   List<Map<String, dynamic>> products = [
+    {
+      "name": 'يبملبن',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'زبييت',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'حلاوهب',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'شبمر',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'ببي',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'قصبب',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'اربز',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'سكيبر',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'ببلح',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'شاس ممبح',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'ملبن',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'زيت',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'حلاوه',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'شمر',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'جاز',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
+    {
+      "name": 'قصب',
+      "unitCount": 200,
+      "boxCount": 10,
+      "containerCount": 5,
+      "unitPrice": 1.5,
+      "boxPrice": 25,
+      "containerPrice": 200,
+    },
     {
       "name": 'ارز',
       "unitCount": 200,
@@ -48,7 +222,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
       "unitPrice": 1.5,
       "boxPrice": 25,
       "containerPrice": 200,
-    }
+    },
   ];
 
   @override
@@ -67,7 +241,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
               child: Text(
                 'تنفيذ البيع',
                 style: TextStyle(
-                    color: Colors.red,
+                    color: AppColors().mainColor,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
@@ -75,32 +249,45 @@ class _AddProductsPageState extends State<AddProductsPage> {
           ),
         ],
       ),
-      body: formProducts.length <= 0
+      body:  Row(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width * .25,
+                  child: ListView(
+                    children: allProductToAdd(),
+                  ),
+                ),
+                Expanded(
+                  child: formProducts.length <= 0
           ? Center(
               child: EmptyState(
-                title: 'يا حسن !!',
+                title: 'لو سمحت',
                 message: 'اختار المنتج اللي عايز تبيعه',
               ),
             )
-          : ListView.builder(
-              itemBuilder: (context, index) {
-                return formProducts[index];
-              },
-              itemCount: formProducts.length,
+          :ListView(
+                    children: <Widget>[
+                      Column(
+                        children: formProducts,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: addForm,
-        foregroundColor: Colors.white,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: addForm,
+      //   foregroundColor: Colors.white,
+      // ),
     );
   }
 
   // on delete form
-  void deleteForm(var x) {
+  void deleteForm(var name) {
     setState(() {
       for (var i = 0; i < formProducts.length; i++) {
-        if (x == formProducts[i].product['name']) {
+        if (name == formProducts[i].product['name']) {
           formProducts.remove(formProducts[i]);
         }
       }
@@ -108,14 +295,13 @@ class _AddProductsPageState extends State<AddProductsPage> {
   }
 
   // on add new form
-  void addForm() {
+  void addForm(Map<String, dynamic> prod) {
     setState(() {
-      Random random = new Random();
-      int ind = random.nextInt(4);
+      
       formProducts.add(
         SingleForm(
-          product: products[ind],
-          onDelete: () => deleteForm(products[ind]['name']),
+          product: prod,
+          onDelete: () => deleteForm(prod['name']),
         ),
       );
     });
@@ -126,19 +312,22 @@ class _AddProductsPageState extends State<AddProductsPage> {
     if (formProducts.length > 0) {
       List<Map<String, dynamic>> bill = [];
       var data = formProducts.map((it) {
-        it.form.currentState.save();
-        bill.add({
-          "name": it.product['name'],
-          "unitCount": it.unitCount,
-          "boxCount": it.boxCount,
-          "containerCount": it.containerCount,
-          "unitPrice": it.unitPrice,
-          "boxPrice": it.boxPrice,
-          "containerPrice": it.containerPrice
-        });
+        if (it.form.currentState != null) {
+          it.saveForm();
+          bill.add({
+            "name": it.product['name'],
+            "unitCount": it.unitCount,
+            "boxCount": it.boxCount,
+            "containerCount": it.containerCount,
+            "unitPrice": it.unitPrice,
+            "boxPrice": it.boxPrice,
+            "containerPrice": it.containerPrice
+          });
+        } else {}
 
         return bill;
       }).toList();
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -255,7 +444,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: data.length,
+                    itemCount: data[0].length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(

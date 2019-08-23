@@ -1,3 +1,4 @@
+import 'package:elropy/utilities/colors.dart';
 import 'package:flutter/material.dart';
 
 class EmptyState extends StatelessWidget {
@@ -9,7 +10,7 @@ class EmptyState extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(5),
       elevation: 16,
-      color: Colors.red.withOpacity(.8),
+      color: AppColors().mainColor.withOpacity(.8),
       shadowColor: Theme.of(context).backgroundColor.withOpacity(.2),
       child: Padding(
         padding: EdgeInsets.all(16),
