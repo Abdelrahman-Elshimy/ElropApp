@@ -1,5 +1,6 @@
 import 'package:elropy/models/customer.dart';
 import 'package:elropy/screens/customers/add_customer.dart';
+import 'package:elropy/screens/customers/add_products.dart';
 import 'package:elropy/screens/customers/customer.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +128,7 @@ class _CustomersPageState extends State<CustomersPage> {
                   child: RaisedButton(
                     child: Text(
                       'أضافة زبون',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => AddCustomerPage()));
@@ -135,15 +136,17 @@ class _CustomersPageState extends State<CustomersPage> {
                   ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 10,
                 ),
                 Expanded(
                   child: RaisedButton(
                     child: Text(
                       'بيع قطاعي',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddProductsPage()));
+                    },
                   ),
                 ),
               ],

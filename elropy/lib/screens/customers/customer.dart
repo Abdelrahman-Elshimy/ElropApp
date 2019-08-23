@@ -1,6 +1,7 @@
 import 'package:elropy/models/customer.dart';
 import 'package:elropy/screens/customers/add_products.dart';
 import 'package:elropy/screens/customers/depts.dart';
+import 'package:elropy/screens/customers/transactions.dart';
 import 'package:flutter/material.dart';
 
 class CustomerPage extends StatefulWidget {
@@ -30,7 +31,9 @@ class _CustomerPageState extends State<CustomerPage> {
             
             child: RaisedButton(
               padding: EdgeInsets.only(top: 15, bottom: 15),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionsPage(widget._customer)));
+              },
               child: Text('معاملات', style: TextStyle(color: Colors.white, fontSize: 20),),
             ),
           ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:elropy/screens/customers/single_product_form.dart';
 import 'package:elropy/shared/empty_state.dart';
 import 'package:elropy/utilities/colors.dart';
@@ -21,25 +19,29 @@ class _AddProductsPageState extends State<AddProductsPage> {
     for (var i = 0; i < products.length; i++) {
       prodsClick.add(
         InkWell(
-          onTap: (){
+          onTap: () {
             addForm(products[i]);
           },
           child: Container(
             decoration: BoxDecoration(
-              border: Border(right: BorderSide(color: Colors.grey.withOpacity(.4)))
+                border: Border(
+                    right: BorderSide(color: Colors.grey.withOpacity(.4)))),
+            padding: EdgeInsets.only(
+              left: 10,
+              right: 10,
+              top: 5,
+              bottom: 5,
             ),
-            padding: EdgeInsets.only(left: 10, right: 10),
             child: Text(products[i]['name']),
           ),
         ),
-        
       );
       prodsClick.add(
         Divider(),
       );
     }
 
-     return prodsClick;
+    return prodsClick;
   }
 
   List<Map<String, dynamic>> products = [
@@ -249,37 +251,33 @@ class _AddProductsPageState extends State<AddProductsPage> {
           ),
         ],
       ),
-      body:  Row(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * .25,
-                  child: ListView(
-                    children: allProductToAdd(),
-                  ),
-                ),
-                Expanded(
-                  child: formProducts.length <= 0
-          ? Center(
-              child: EmptyState(
-                title: 'لو سمحت',
-                message: 'اختار المنتج اللي عايز تبيعه',
-              ),
-            )
-          :ListView(
+      body: Row(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(0),
+            width: MediaQuery.of(context).size.width * .25,
+            child: ListView(
+              children: allProductToAdd(),
+            ),
+          ),
+          Expanded(
+            child: formProducts.length <= 0
+                ? Center(
+                    child: EmptyState(
+                      title: 'لو سمحت',
+                      message: 'اختار المنتج اللي عايز تبيعه',
+                    ),
+                  )
+                : ListView(
                     children: <Widget>[
                       Column(
                         children: formProducts,
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.add),
-      //   onPressed: addForm,
-      //   foregroundColor: Colors.white,
-      // ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -297,7 +295,6 @@ class _AddProductsPageState extends State<AddProductsPage> {
   // on add new form
   void addForm(Map<String, dynamic> prod) {
     setState(() {
-      
       formProducts.add(
         SingleForm(
           product: prod,
@@ -560,6 +557,137 @@ class _AddProductsPageState extends State<AddProductsPage> {
                         ),
                       );
                     },
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 13,),
+                            Container(
+                              child: RaisedButton(
+                                padding: EdgeInsets.all(8),
+                                onPressed: () {},
+                                child: Text(
+                                  'أضافة',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 7,),
+                            Container(
+                              child: RaisedButton(
+                                padding: EdgeInsets.all(0),
+                                onPressed: () {},
+                                child: Text(
+                                  'طباعة فاتورة',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  'قيمة الفاتورة',
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: AppColors().mainColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: Text(
+                                  '1000',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              Container(
+                                child: Text('قيمة الديون'),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors().mainColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                padding: EdgeInsets.all(10),
+                                width: MediaQuery.of(context).size.width,
+                                child: Text(
+                                  '750',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Container(
+                                child: Text('القيمة المسددة'),
+                              ),
+                              Container(
+                                child: Form(
+                                  child: TextFormField(
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    initialValue: '0',
+                                    decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: AppColors().mainColor,
+                                        contentPadding: EdgeInsets.all(9),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: AppColors().mainColor))),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text('قيمة الديون المتبقيه'),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors().mainColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                padding: EdgeInsets.all(10),
+                                width: MediaQuery.of(context).size.width,
+                                child: Text(
+                                  '750',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

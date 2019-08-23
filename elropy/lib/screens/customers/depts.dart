@@ -28,14 +28,14 @@ class _DeptsPageState extends State<DeptsPage> {
                 width: double.infinity,
                 margin: EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Text(
-                  'القيمة الباقية',
+                  'الدوين المتبقيه علي ${widget._customer.name.split(" ")[0]}',
                   style: TextStyle(fontSize: 25),
                   textAlign: TextAlign.right,
                 ),
               ),
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     border: Border.all(
