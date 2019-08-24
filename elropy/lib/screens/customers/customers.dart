@@ -30,7 +30,6 @@ class _CustomersPageState extends State<CustomersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
       appBar: AppBar(
         centerTitle: true,
         title: Text('الزبائن'),
