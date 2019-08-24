@@ -148,7 +148,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('معاملات ${widget._customer.name.split(" ")[0]}'),
+        title: Text('العمليات التجارية ل${widget._customer.name.split(" ")[0]}'),
       ),
       body: ListView(
         children: <Widget>[
