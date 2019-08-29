@@ -1,3 +1,4 @@
+import 'package:elropy/Api/customer/customer_api.dart';
 import 'package:elropy/models/customer.dart';
 import 'package:elropy/screens/customers/add_customer.dart';
 import 'package:elropy/screens/customers/add_products.dart';
@@ -10,22 +11,15 @@ class CustomersPage extends StatefulWidget {
 }
 
 class _CustomersPageState extends State<CustomersPage> {
-
   List<Customer> customers = [];
+  CustomerApi cusApi = new CustomerApi();
 
   @override
   void initState() {
     super.initState();
-
-    for (var i = 0; i < 50; i++) {
-      customers.add(
-        Customer('عبدالرحمن لطفي يحي $i', '0112484195$i', 'الرياض')
-      );
-    }
-
-    
-
+    // cusApi.getAllCustomers();
   }
+
   String _search;
   @override
   Widget build(BuildContext context) {
@@ -115,7 +109,39 @@ class _CustomersPageState extends State<CustomersPage> {
 
           Expanded(
             child: ListView(
-              children: getAllCustomers(),
+              children: <Widget>[
+                FutureBuilder(
+                  future: cusApi.getAllCustomers(),
+                  builder: (context, AsyncSnapshot snapShot) {
+                    switch (snapShot.connectionState) {
+                      case ConnectionState.waiting:
+                        return loading();
+                        break;
+                      case ConnectionState.active:
+                        return loading();
+                        break;
+                      case ConnectionState.none:
+                        return loading();
+                        break;
+                      case ConnectionState.done:
+                        if(snapShot.error != null ) {
+                          return Container();
+                        }
+                        else {
+                           List custs = snapShot.data;
+                           if(custs.length > 0) {
+                             
+                             return Column(
+                               children: getAllCustomers(custs),
+                             );
+                           }
+                        }
+                        break;
+                    }
+                    return null;
+                  },
+                ),
+              ],
             ),
           ),
           Container(
@@ -130,7 +156,10 @@ class _CustomersPageState extends State<CustomersPage> {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddCustomerPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddCustomerPage()));
                     },
                   ),
                 ),
@@ -144,7 +173,10 @@ class _CustomersPageState extends State<CustomersPage> {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddProductsPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddProductsPage()));
                     },
                   ),
                 ),
@@ -156,7 +188,24 @@ class _CustomersPageState extends State<CustomersPage> {
     );
   }
 
-  List<Widget> getAllCustomers() {
+  Widget loading() {
+    return Transform.translate(
+      offset: Offset(0, 50),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget error() {
+    return Container(
+      child: Center(
+        child: Text('حدث خطا الرجاء المحاوله ثانيه'),
+      ),
+    );
+  }
+
+  List<Widget> getAllCustomers(List<Customer> customers) {
     List<Widget> customersWidgets = [];
 
     for (int i = 0; i < customers.length; i++) {
@@ -165,16 +214,17 @@ class _CustomersPageState extends State<CustomersPage> {
           margin: EdgeInsets.only(left: 15, right: 15, bottom: 10),
           child: InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CustomerPage(customers[i])));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CustomerPage(customers[i])));
             },
             child: Container(
               decoration: BoxDecoration(
-                color: (i % 2 == 0) ?Color(0xffDDDDDD) : Colors.white,
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5)),
-            
-            padding: EdgeInsets.only(top: 8, bottom: 8),
-            
+                  color: (i % 2 == 0) ? Color(0xffDDDDDD) : Colors.white,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              padding: EdgeInsets.only(top: 8, bottom: 8),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -205,7 +255,7 @@ class _CustomersPageState extends State<CustomersPage> {
                     flex: 1,
                     child: Container(
                       child: Text(
-                        (1000 * (i + 1)).toString(),
+                        customers[i].dept.toString(),
                         textAlign: TextAlign.center,
                       ),
                     ),
