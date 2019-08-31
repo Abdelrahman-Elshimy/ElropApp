@@ -1,10 +1,15 @@
+import 'package:elropy/Api/customer/customer_api.dart';
+import 'package:elropy/screens/customers/customers.dart';
 import 'package:flutter/material.dart';
+
 class AddCustomerPage extends StatefulWidget {
   @override
   _AddCustomerPageState createState() => _AddCustomerPageState();
 }
 
 class _AddCustomerPageState extends State<AddCustomerPage> {
+  CustomerApi cusApi = new CustomerApi();
+  bool isLaoding = false;
   final _addCustomerForm = GlobalKey<FormState>();
   String _name;
   String _number;
@@ -92,13 +97,16 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                   Container(
                     width: double.infinity,
                     child: RaisedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_addCustomerForm.currentState.validate()) {
+                          
                           _addCustomerForm.currentState.save();
-                          print(_name);
-                          print(_number);
-                          print(_address);
-                         
+                          final response = await cusApi.addNewCustomer({
+                            'name': _name,
+                            'address': _address,
+                            'mobile': _number
+                          });
+                          getLoading(response['messages']);
                         }
                       },
                       child: Text(
@@ -112,6 +120,33 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  void getLoading(response) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (_) => Scaffold(
+          appBar: AppBar(),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CustomersPage()));
+            },
+            child: Icon(Icons.home),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                (response == null) ? Text('حدث خطا في الاتصال') : Text(response.toString()),
+
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

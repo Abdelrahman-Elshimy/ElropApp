@@ -14,11 +14,7 @@ class _CustomersPageState extends State<CustomersPage> {
   List<Customer> customers = [];
   CustomerApi cusApi = new CustomerApi();
 
-  @override
-  void initState() {
-    super.initState();
-    // cusApi.getAllCustomers();
-  }
+ 
 
   String _search;
   @override
@@ -109,6 +105,7 @@ class _CustomersPageState extends State<CustomersPage> {
 
           Expanded(
             child: ListView(
+              
               children: <Widget>[
                 FutureBuilder(
                   future: cusApi.getAllCustomers(),
